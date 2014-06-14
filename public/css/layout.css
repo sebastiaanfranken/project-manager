@@ -1,0 +1,34 @@
+/* --- Tags --- */
+
+body {	
+	padding-bottom: 200px;
+	padding-top: 80px;
+}
+
+a {
+	-webkit-transition: all 200ms linear;
+	-moz-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+/* --- General classes --- */
+
+
+/* --- Overrides --- */
+
+.navbar {
+	/*background: #4d9;*/
+	background: #0ad;
+}
+
+.navbar a.navbar-brand, .navbar .navbar-nav a {
+	color: #fff;
+}
+
+.navbar .dropdown-menu a, .navbar .open .dropdown-toggle {
+	color: #000;
+}
+
+.navbar .navbar-nav a:hover {
+	background: rgba(100, 100, 100, 0.15);
+}
