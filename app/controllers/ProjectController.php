@@ -112,10 +112,18 @@ class ProjectController extends BaseController
 			 */
 			foreach(User::all() as $user)
 			{
+				/*
 				if($user->id != Auth::user()->id)
 				{
 					$users[$user->id] = $user->username;
 				}
+				*/
+
+				$users[] = array(
+					'id' => $user->id,
+					'username' => $user->username,
+					'member' => User::find($user->id)->projects()->wherePivot('project_id', '=', $projectid)->count()
+				);
 			}
 
 			/*

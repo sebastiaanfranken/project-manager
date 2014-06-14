@@ -34,20 +34,18 @@
 					<?php print Form::textarea('description', Input::old('description'), array('class' => 'form-control', 'required' => 'required', 'rows' => 6));?>
 				</div> <!-- /.col-sm-10 -->
 			</div> <!-- /.form-group -->
-			<?php /*
 			<div class="form-group">
 				<?php print Form::label('members', 'Leden', array('class' => 'col-sm-2 control-label'));?>
 				<div class="col-sm-10">
-					<?php foreach($users as $id => $username) : ?>
+					<?php foreach($users as $user) : ?>
 					<div class="checkbox">
 						<label>
-							<?php print Form::checkbox('members[]', $id, User::isProjectMember($id, $project->id)) . ' ' . $username;?>
+							<?php print Form::checkbox('members[]', $user['id'], $user['member']) . ' ' . $user['username'];?>
 						</label>
 					</div> <!-- /.checkbox -->
 					<?php endforeach;?>
 				</div> <!-- /.col-sm-10 -->
 			</div> <!-- /.form-group -->
-			*/ ?>
 			<div class="form-group">
 				<?php print Form::label('start_date', 'Startdatum', array('class' => 'col-sm-2 control-label'));?>
 				<div class="col-sm-10">

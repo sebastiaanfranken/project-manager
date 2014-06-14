@@ -47,9 +47,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function scopeIsProjectMember($query, $uid, $pid)
 	{
-		$check = User::find($uid)->projects()->wherePivot('project_id', '=', $pid)->wherePivot('user_id', '=', $uid)->get();
-
-		return $check;
+		return $query->find($uid)->projects()->where('project_id', '=', $pid)->get();
 	}
 
 }
