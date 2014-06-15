@@ -36,13 +36,10 @@
 			<div class="form-group">
 				<?php print Form::label('members', 'Leden', array('class' => 'col-sm-2 control-label'));?>
 				<div class="col-sm-10">
-					<?php foreach($users as $id => $username) : ?>
+					<?php foreach($users as $user) : ?>
 					<div class="checkbox">
 						<label>
-							<?php
-							print Form::checkbox('members[]', $id, null);
-							print $username;
-							?>
+							<?php print Form::checkbox('members[]', $user['id']) . ' ' . $user['username'];?>
 						</label>
 					</div> <!-- /.checkbox -->
 					<?php endforeach;?>

@@ -49,3 +49,11 @@ if(!function_exists('print_array'))
 		return rtrim(rtrim($output), $divider);
 	}
 }
+
+if(!function_exists('pr'))
+{
+	function pr($what)
+	{
+		return '<pre>' . print_r($what, true) . '</pre>';
+	}
+}

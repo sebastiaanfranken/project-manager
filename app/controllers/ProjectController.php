@@ -33,7 +33,10 @@ class ProjectController extends BaseController
 		 */
 		foreach(User::all() as $user)
 		{
-			$users[$user->id] = $user->username;
+			$users[] = array(
+				'id' => $user->id,
+				'username' => $user->username
+			);
 		}
 
 		/*
@@ -112,13 +115,6 @@ class ProjectController extends BaseController
 			 */
 			foreach(User::all() as $user)
 			{
-				/*
-				if($user->id != Auth::user()->id)
-				{
-					$users[$user->id] = $user->username;
-				}
-				*/
-
 				$users[] = array(
 					'id' => $user->id,
 					'username' => $user->username,
@@ -148,6 +144,7 @@ class ProjectController extends BaseController
 			$rules = array(
 				'name' => array('required'),
 				'description' => array('required', 'min:10', 'max:100'),
+				'members' => array('required'),
 				'start_date' => array('required', 'date', 'date_format:d-m-Y'),
 				'end_date' => array('date', 'date_format:d-m-Y')
 			);
@@ -176,21 +173,17 @@ class ProjectController extends BaseController
 
 				$project->save();
 
-				if(Input::has('members'))
+				foreach(Input::get('members') as $member)
 				{
-					foreach(Input::get('members') as $counter => $user)
-					{
-						$pivot = Project::find($projectid);
 
-						if($pivot->users()->where('project_id', '=', $projectid)->where('user_id', '=', $user)->first())
-						{
-							$pivot->users()->detach($user);
-						}
-						else
-						{
-							$pivot->users()->attach($user);
-						}
-					}
+					/*
+					 * This isn't very nice but right now it's the only way
+					 * to make it work reliably
+					 */
+					$pivot = Project::find($projectid);
+					$pivot->users()->detach();
+					$pivot->users()->attach($member);
+
 				}
 
 				Session::flash('message', 'Het project is opgeslagen.');
