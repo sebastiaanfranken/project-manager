@@ -27,8 +27,8 @@
 					
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="<?php print action('ProjectController@getIndex');?>">Projecten</a></li>
-						<li><a href="<?php print action('TaskController@getIndex');?>">Taken</a></li>
+						<li class="<?php print Request::segment(1) == 'project' ? 'active' : '';?>"><a href="<?php print action('ProjectController@getIndex');?>">Projecten</a></li>
+						<li class="<?php print Request::segment(1) == 'task' ? 'active' : ''; ?>"><a href="<?php print action('TaskController@getIndex');?>">Taken</a></li>
 					</ul> <!-- /.nav /.navbar-nav -->
 
 					<?php if(Auth::check()) : ?>
