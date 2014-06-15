@@ -14,10 +14,10 @@
 				<tr>
 					<th>#</th>
 					<th>Naam</th>
-					<th>Voortgang</th>
 					<th>Project</th>
 					<th>Startdatum</th>
 					<th>Einddatum</th>
+					<th>Voortgang</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -27,10 +27,10 @@
 				<tr>
 					<td><?php print $task->id;?></td>
 					<td><?php print $task->name;?></td>
-					<td><?php print $task->completion;?>%</td>
 					<td><a href="<?php print action('ProjectController@getDetails', array($task->project_id));?>"><?php print Project::find($task->project_id)->name;?></a></td>
 					<td><?php print timestamp($task->start_date, 'Geen startdatum');?></td>
 					<td><?php print timestamp($task->end_date, 'Geen einddatum');?></td>
+					<td><?php print $task->completion;?>%</td>
 					<td>
 						<a href="<?php print action('TaskController@getDetails', array($task->id));?>">Details</a>
 					</td>

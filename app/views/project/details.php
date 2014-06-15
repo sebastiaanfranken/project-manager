@@ -81,7 +81,7 @@
 			</tbody>
 		</table> <!-- /.table /.table-striped -->
 		<?php else : ?>
-		<p>Er zijn nog geen taken. Wil je er <a href="<?php print action('TaskController@getCreate');?>">een toevoegen</a>?</p>
+		<p>Er zijn nog geen taken. Wil je er <a href="<?php print action('TaskController@getCreate', array($project->id, Auth::user()->id));?>">een toevoegen</a>?</p>
 		<?php endif;?>
 	</div> <!-- /.row -->
 </div> <!-- /.container -->

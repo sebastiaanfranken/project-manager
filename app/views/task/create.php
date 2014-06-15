@@ -24,13 +24,13 @@
 			<div class="form-group">
 				<?php print Form::label('project_id', 'Project', array('class' => 'col-sm-2 control-label'));?>
 				<div class="col-sm-10">
-					<?php print Form::select('project_id', $projects, Input::old('project_id'), array('class' => 'form-control', 'required' => 'required'));?>
+					<?php print Form::select('project_id', $projects, Input::old('project_id', $project_id), array('class' => 'form-control', 'required' => 'required'));?>
 				</div> <!-- /.col-sm-10 -->
 			</div> <!-- /.form-group -->
 			<div class="form-group">
 				<?php print Form::label('user_id', 'Gebruiker', array('class' => 'col-sm-2 control-label'));?>
 				<div class="col-sm-10">
-					<?php print Form::select('user_id', $users, Input::old('user_id'), array('class' => 'form-control', 'required' => 'required'));?>
+					<?php print Form::select('user_id', $users, Input::old('user_id', $user_id), array('class' => 'form-control', 'required' => 'required'));?>
 				</div> <!-- /.col-sm-10 -->
 			</div> <!-- /.form-group -->
 			<div class="form-group">

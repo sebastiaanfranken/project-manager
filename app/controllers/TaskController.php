@@ -23,7 +23,7 @@ class TaskController extends BaseController
 	/*
 	 * Shows the view to create a task
 	 */
-	public function getCreate()
+	public function getCreate($projectid = null, $userid= null)
 	{
 		/*
 		 * Stores all the users
@@ -56,7 +56,9 @@ class TaskController extends BaseController
 		 */
 		$data = array(
 			'users' => $users,
-			'projects' => $projects
+			'projects' => $projects,
+			'project_id' => (is_null($projectid) ? null : $projectid),
+			'user_id' => (is_null($userid) ? null : $userid),
 		);
 
 		return View::make('layouts/main')->nest('content', 'task/create', $data);
@@ -65,7 +67,7 @@ class TaskController extends BaseController
 	/*
 	 * Handles the creation of a task
 	 */
-	public function postCreate()
+	public function postCreate($projectid = null, $userid = null)
 	{
 		$rules = array(
 			'project_id' => array('required'),

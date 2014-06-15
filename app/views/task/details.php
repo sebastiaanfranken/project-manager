@@ -31,6 +31,10 @@
 					<td><?php print $task->name;?></td>
 				</tr>
 				<tr>
+					<td>Omschrijving</td>
+					<td><?php print $task->description;?></td>
+				</tr>
+				<tr>
 					<td>Voortgang</td>
 					<td><?php print $task->completion;?>%</td>
 				</tr>
