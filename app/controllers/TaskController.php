@@ -180,7 +180,7 @@ class TaskController extends BaseController
 
 			if($validator->fails())
 			{
-				return Redirect::action('TaskController@getCreate')->withErrors($validator)->withInput(Input::all());
+				return Redirect::action('TaskController@getUpdate', array($taskid))->withErrors($validator)->withInput(Input::all());
 			}
 			else
 			{

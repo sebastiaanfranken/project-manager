@@ -7,6 +7,7 @@
 
 class UserController extends BaseController
 {
+
 	/*
 	 * The user starting page
 	 */
@@ -86,6 +87,161 @@ class UserController extends BaseController
 	 */
 	public function getCreate()
 	{
-		
+		if(Auth::user()->role == 'admin')
+		{
+			return View::make('layouts/main')->nest('content', 'user/create');
+		}
+
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Handles the creation of a user
+	 */
+	public function postCreate()
+	{
+		if(Auth::user()->role == 'admin')
+		{
+			$rules = array(
+				'username' => array('required', 'min:2', 'max:100'),
+				'password' => array('required', 'min:5'),
+				'password_check' => array('required', 'min:5', 'same:password')
+			);
+
+			$validator = Validator::make(Input::all(), $rules);
+
+			if($validator->fails())
+			{
+				return Redirect::action('UserController@getCreate')->withErrors($validator)->withInput(Input::all());
+			}
+			else
+			{
+				$user = new User;
+				$user->username = Input::get('username');
+				$user->role = Input::get('role');
+				$user->password = Hash::make(Input::get('password'));
+				$user->save();
+
+				Session::flash('message', 'De gebruiker is opgeslagen');
+			}
+		}
+
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Shows the view to update a user
+	 */
+	public function getUpdate($userid = null)
+	{
+		if(!is_null($userid) && Auth::user()->role == 'admin')
+		{
+			$data = array(
+				'user' => User::find($userid)
+			);
+
+			return View::make('layouts/main')->nest('content', 'user/update', $data);
+		}
+
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Handles the updating of a user
+	 */
+	public function postUpdate($userid = null)
+	{
+		if(!is_null($userid) && Auth::user()->role == 'admin')
+		{
+			$rules = array(
+				'username' => array('required', 'min:2', 'max:100'),
+				'password' => array('required', 'min:5'),
+				'password_check' => array('required', 'min:5', 'same:password')
+			);
+
+			$validator = Validator::make(Input::all(), $rules);
+
+			if($validator->fails())
+			{
+				return Redirect::action('UserController@getUpdate', array($userid))->withErrors($validator)->withInput(Input::all());
+			}
+			else
+			{
+				$user = User::find($userid);
+				$user->username = Input::get('username');
+				$user->role = Input::get('role');
+				$user->password = Hash::make(Input::get('password'));
+				$user->save();
+
+				Session::flash('message', 'De gebruiker is gewijzigd');
+			}
+		}
+
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Shows the view to delete a user
+	 */
+	public function getDelete($userid = null)
+	{
+		if(!is_null($userid) && Auth::user()->role == 'admin')
+		{
+			$data = array(
+				'user' => User::find($userid)
+			);
+
+			return View::make('layouts/main')->nest('content', 'user/delete', $data);
+		}
+
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Handles the deleting of a user
+	 */
+	public function postDelete($userid = null)
+	{
+		if(!is_null($userid) && Auth::user()->role == 'admin')
+		{
+			$user = User::find($userid);
+			$user->delete();
+
+			Session::flash('message', 'Deze gebruiker is verwijderd.');
+		}
+
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Shows the export view
+	 */
+	public function getExport()
+	{
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Handles the export
+	 */
+	public function postExport()
+	{
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Shows the import view
+	 */
+	public function getImport()
+	{
+		return Redirect::action('UserController@getUsers');
+	}
+
+	/*
+	 * Handles the import
+	 */
+	public function postImport()
+	{
+		return Redirect::action('UserController@getUsers');
 	}
 }

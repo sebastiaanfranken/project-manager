@@ -55,14 +55,14 @@
 			<div class="form-group">
 				<?php print Form::label('end_date', 'Einddatum', array('class' => 'col-sm-2 control-label'));?>
 				<div class="col-sm-10">
-					<?php print Form::text('end_date', Input::old('end_date'), array('class' => 'form-control'));?>
+					<?php print Form::text('end_date', Input::old('end_date', timestamp($task->end_date)), array('class' => 'form-control'));?>
 				</div> <!-- /.col-sm-10 -->
 			</div> <!-- /.form-group -->
 			<div class="form-group">
-				<?php print Form::label('progression', 'Voortgang', array('class' => 'col-sm-2 control-label'));?>
+				<?php print Form::label('completion', 'Voortgang', array('class' => 'col-sm-2 control-label'));?>
 				<div class="col-sm-10">
 					<div class="input-group">
-						<?php print Form::text('progression', Input::old('progression', 0), array('class' => 'form-control', 'required' => 'required'));?>
+						<?php print Form::text('completion', Input::old('completion', 0), array('class' => 'form-control', 'required' => 'required'));?>
 						<span class="input-group-addon">%</span>
 					</div> <!-- /.input-group -->
 				</div> <!-- /.col-sm-10 -->
