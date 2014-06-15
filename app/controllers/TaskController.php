@@ -116,7 +116,7 @@ class TaskController extends BaseController
 	 */
 	public function getUpdate($taskid = null)
 	{
-		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->id == Auth::user()->id)
+		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->user_id == Auth::user()->id)
 		{
 			/*
 			 * Stores all users
@@ -164,7 +164,7 @@ class TaskController extends BaseController
 	 */
 	public function postUpdate($taskid = null)
 	{
-		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->id == Auth::user()->id)
+		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->user_id == Auth::user()->id)
 		{
 			$rules = array(
 				'project_id' => array('required'),
@@ -217,7 +217,7 @@ class TaskController extends BaseController
 	 */
 	public function getDelete($taskid = null)
 	{
-		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->id == Auth::user()->id)
+		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->user_id == Auth::user()->id)
 		{
 			$data = array(
 				'task' => Task::find($taskid)
@@ -234,7 +234,7 @@ class TaskController extends BaseController
 	 */
 	public function postDelete($taskid = null)
 	{
-		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->id == Auth::user()->id)
+		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->user_id == Auth::user()->id)
 		{
 			$task = Task::find($taskid);
 			$task->delete();
