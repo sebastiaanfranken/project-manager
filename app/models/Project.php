@@ -54,4 +54,12 @@ class Project extends Eloquent
 	{
 		return $this->belongsToMany('User');
 	}
+
+	/*
+	 * This handles the relationship to the tasks table
+	 */
+	public function tasks()
+	{
+		return $this->hasMany('Task');
+	}
 }
