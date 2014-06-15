@@ -32,11 +32,11 @@
 				</tr>
 				<tr>
 					<td>Startdatum</td>
-					<td><?php print timestamp($project->start_date, 'Geen startdatum opgegeven');?></td>
+					<td><?php print timestamp($project->start_date, 'Geen startdatum');?></td>
 				</tr>
 				<tr>
 					<td>Einddatum</td>
-					<td><?php print timestamp($project->end_date, 'Geen einddatum opgegeven');?></td>
+					<td><?php print timestamp($project->end_date, 'Geen einddatum');?></td>
 				</tr>
 				<tr>
 					<td>Laatste wijziging</td>

@@ -80,12 +80,12 @@ Route::group(array('prefix' => 'task', 'before' => 'auth'), function() {
 	/*
 	 * Handles the HTTP GET for creating a task
 	 */
-	Route::get('create/{projectid?}/{userid?}', 'TaskController@getCreate');
+	Route::get('create/{userid?}/{projectid?}', 'TaskController@getCreate');
 
 	/*
 	 * Handles the HTTP POST for creating a task
 	 */
-	Route::post('create/{projectid?}/{userid?}', 'TaskController@postCreate');
+	Route::post('create/{userid?}/{projectid?}', 'TaskController@postCreate');
 
 	/*
 	 * Handles teh HTTP GET for updating a task

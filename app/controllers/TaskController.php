@@ -23,7 +23,7 @@ class TaskController extends BaseController
 	/*
 	 * Shows the view to create a task
 	 */
-	public function getCreate($projectid = null, $userid= null)
+	public function getCreate($userid = null, $projectid = null)
 	{
 		/*
 		 * Stores all the users
@@ -67,7 +67,7 @@ class TaskController extends BaseController
 	/*
 	 * Handles the creation of a task
 	 */
-	public function postCreate($projectid = null, $userid = null)
+	public function postCreate($userid = null, $projectid = null)
 	{
 		$rules = array(
 			'project_id' => array('required'),
