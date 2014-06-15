@@ -250,7 +250,7 @@ class TaskController extends BaseController
 	 */
 	public function getDetails($taskid = null)
 	{
-		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->id == Auth::user()->id)
+		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->user_id == Auth::user()->id)
 		{
 			/*
 			 * Get the task data
