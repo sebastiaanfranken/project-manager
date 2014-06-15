@@ -48,7 +48,7 @@
 				</tr>
 			</tbody>
 		</table> <!-- /.table /.table-striped -->
-	</div> <!_- /.row -->
+	</div> <!-- /.row -->
 
 	<div class="row">
 		<h2>Taken (<?php print count($tasks);?>)</h2>

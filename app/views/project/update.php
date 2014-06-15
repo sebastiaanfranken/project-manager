@@ -61,7 +61,7 @@
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<?php print Form::submit('Wijzigen', array('class' => 'btn btn-info'));?>
-					<?php if(count($tasks) > 0) : ?>
+					<?php if(count($tasks) == 0) : ?>
 					<a href="<?php print action('ProjectController@getDelete', array($project->id));?>" class="btn btn-danger">Verwijderen</a>
 					<?php endif;?>
 				</div> <!-- /.col-sm-offset-2 /.col-sm-10 -->

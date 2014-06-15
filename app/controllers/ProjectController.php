@@ -103,7 +103,7 @@ class ProjectController extends BaseController
 	 */
 	public function getUpdate($projectid = null)
 	{
-		if(!is_null($projectid) && User::isProjectMember(Auth::user()->id, $projectid))
+		if(!is_null($projectid) && User::find(Auth::user()->id)->projects()->where('project_id', '=', $projectid)->count())
 		{
 			/*
 			 * Stores all users
@@ -137,9 +137,12 @@ class ProjectController extends BaseController
 		return Redirect::action('ProjectController@getIndex');
 	}
 
+	/*
+	 * Handles the updating of a project
+	 */
 	public function postUpdate($projectid = null)
 	{
-		if(!is_null($projectid) && User::isProjectMember(Auth::user()->id, $projectid))
+		if(!is_null($projectid) && User::find(Auth::user()->id)->projects()->where('project_id', '=', $projectid)->count())
 		{
 			$rules = array(
 				'name' => array('required'),
@@ -195,17 +198,61 @@ class ProjectController extends BaseController
 		return Redirect::action('ProjectController@getIndex');
 	}
 
+	/*
+	 * Shows the delete view
+	 */
 	public function getDelete($projectid = null)
 	{
+		if(!is_null($projectid) && User::find(Auth::user()->id)->projects()->where('project_id', '=', $projectid)->count())
+		{
+			$data = array(
+				'projectid' => $projectid,
+				'tasks' => Task::where('project_id', '=', $projectid)
+			);
+
+			return View::make('layouts/main')->nest('content', 'project/delete', $data);
+		}
+
+		return Redirect::action('ProjectController@getDetails', array($projectid));
 	}
 
+	/*
+	 * Handles the deleting of a project
+	 */
 	public function postDelete($projectid = null)
 	{
+		if(!is_null($projectid) && User::find(Auth::user()->id)->projects()->where('project_id', '=', $projectid)->count())
+		{
+			/*
+			 * Delete all project_user references first
+			 */
+			$pivot = Project::find($projectid)->users();
+			$pivot->detach();
+
+			/*
+			 * Delete all tasks
+			 */
+			$tasks = Task::where('project_id', '=', $projectid);
+			$tasks->delete();
+
+			/*
+			 * Delete the project now
+			 */
+			$project = Project::find($projectid);
+			$project->delete();
+
+			Session::flash('message', 'Het project (en taken) is verwijderd.');
+		}
+
+		return Redirect::action('ProjectController@getDetails', array($projectid));
 	}
 
+	/*
+	 * Shows the details of a project
+	 */
 	public function getDetails($projectid = null)
 	{
-		if(!is_null($projectid) && User::isProjectMember(Auth::user()->id, $projectid))
+		if(!is_null($projectid) && User::find(Auth::user()->id)->projects()->where('project_id', '=', $projectid)->count())
 		{
 			$data = array(
 				'project' => Project::find($projectid),
