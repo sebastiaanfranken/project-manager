@@ -27,6 +27,10 @@
 					<td><?php print $project->description;?></td>
 				</tr>
 				<tr>
+					<td>Geschatte uren</td>
+					<td><?php print nill($project->estimated_hours, 'Geen geschatte uren');?></td>
+				</tr>
+				<tr>
 					<td>Leden</td>
 					<td><?php print print_array(Project::find($project->id)->users()->get()->toArray(), 'username');?></td>
 				</tr>

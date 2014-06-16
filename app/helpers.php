@@ -69,6 +69,21 @@ if(!function_exists('flash'))
 	}
 }
 
+/**
+ * A simple function that prints a variable ($var) it it's set, otherwise it prints $message
+ * @param string $var The variable to check and print it it's set
+ * @param string $message The fallback message
+ * @return string
+ * @author Sebastiaan Franken <sebastiaan@sebastiaanfranken.nl>
+ */
+if(!function_exists('nill'))
+{
+	function nill($var, $message)
+	{
+		print isset($var) ? $var : $message;
+	}
+}
+
 if(!function_exists('pr'))
 {
 	function pr($what)
