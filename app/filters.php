@@ -93,9 +93,15 @@ Route::filter('csrf', function()
  * Role filters
  */
 Route::filter('roleAdmin', function() {
-	return (Auth::check() && Auth::user()->role == 'admin') ? true : false;
+	if(Auth::user()->role != 'admin')
+	{
+		return Redirect::to('/');
+	}
 });
 
-Route::filter('isUser', function() {
-	return (Auth::check() && Auth::user()->role == 'user') ? true : false;
+Route::filter('roleUser', function() {
+	if(Auth::user()->role != 'member')
+	{
+		return Redirect::to('/');
+	}
 });

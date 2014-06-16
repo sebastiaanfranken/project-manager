@@ -70,16 +70,11 @@ class UserController extends BaseController
 	 */
 	public function getUsers()
 	{
-		if(Auth::user()->role == 'admin')
-		{
-			$data = array(
-				'users' => User::all()
-			);
+		$data = array(
+			'users' => User::all()
+		);
 
-			return View::make('layouts/main')->nest('content', 'user/list', $data);
-		}
-
-		return Redirect::action('UserController@getIndex');
+		return View::make('layouts/main')->nest('content', 'user/list', $data);
 	}
 
 	/*
@@ -87,12 +82,7 @@ class UserController extends BaseController
 	 */
 	public function getCreate()
 	{
-		if(Auth::user()->role == 'admin')
-		{
-			return View::make('layouts/main')->nest('content', 'user/create');
-		}
-
-		return Redirect::action('UserController@getUsers');
+		return View::make('layouts/main')->nest('content', 'user/create');
 	}
 
 	/*
@@ -100,33 +90,28 @@ class UserController extends BaseController
 	 */
 	public function postCreate()
 	{
-		if(Auth::user()->role == 'admin')
+		$rules = array(
+			'username' => array('required', 'min:2', 'max:100'),
+			'password' => array('required', 'min:5'),
+			'password_check' => array('required', 'min:5', 'same:password')
+		);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails())
 		{
-			$rules = array(
-				'username' => array('required', 'min:2', 'max:100'),
-				'password' => array('required', 'min:5'),
-				'password_check' => array('required', 'min:5', 'same:password')
-			);
-
-			$validator = Validator::make(Input::all(), $rules);
-
-			if($validator->fails())
-			{
-				return Redirect::action('UserController@getCreate')->withErrors($validator)->withInput(Input::all());
-			}
-			else
-			{
-				$user = new User;
-				$user->username = Input::get('username');
-				$user->role = Input::get('role');
-				$user->password = Hash::make(Input::get('password'));
-				$user->save();
-
-				Session::flash('message', 'De gebruiker is opgeslagen');
-			}
+			return Redirect::action('UserController@getCreate')->withErrors($validator)->withInput(Input::all());
 		}
+		else
+		{
+			$user = new User;
+			$user->username = Input::get('username');
+			$user->role = Input::get('role');
+			$user->password = Hash::make(Input::get('password'));
+			$user->save();
 
-		return Redirect::action('UserController@getUsers');
+			flash('De gebruiker is toegevoegd.', 'success');
+		}
 	}
 
 	/*
@@ -134,7 +119,7 @@ class UserController extends BaseController
 	 */
 	public function getUpdate($userid = null)
 	{
-		if(!is_null($userid) && Auth::user()->role == 'admin')
+		if(!is_null($userid))
 		{
 			$data = array(
 				'user' => User::find($userid)
@@ -151,7 +136,7 @@ class UserController extends BaseController
 	 */
 	public function postUpdate($userid = null)
 	{
-		if(!is_null($userid) && Auth::user()->role == 'admin')
+		if(!is_null($userid))
 		{
 			$rules = array(
 				'username' => array('required', 'min:2', 'max:100'),
@@ -185,7 +170,7 @@ class UserController extends BaseController
 	 */
 	public function getDelete($userid = null)
 	{
-		if(!is_null($userid) && Auth::user()->role == 'admin')
+		if(!is_null($userid))
 		{
 			$data = array(
 				'user' => User::find($userid)
@@ -202,7 +187,7 @@ class UserController extends BaseController
 	 */
 	public function postDelete($userid = null)
 	{
-		if(!is_null($userid) && Auth::user()->role == 'admin')
+		if(!is_null($userid))
 		{
 			$user = User::find($userid);
 			$user->delete();
@@ -218,12 +203,7 @@ class UserController extends BaseController
 	 */
 	public function getExport()
 	{
-		if(Auth::user()->role == 'admin')
-		{
-			return View::make('layouts/main')->nest('content', 'user/export');
-		}
-
-		return Redirect::action('UserController@getIndex');
+		return View::make('layouts/main')->nest('content', 'user/export');
 	}
 
 	/*
