@@ -57,7 +57,7 @@ jQuery(document).ready(function() {
 			{
 				path: '/task/',
 				element: '.row:eq(1)',
-				placement: 'bottom',
+				placement: 'left',
 				title: 'Alle taken in een oogopslag',
 				content: 'Hier zie je alle taken die bij je horen met de naam, het project, de start- en einddatum en de voortgang van de taak.'
 			},
@@ -86,18 +86,21 @@ jQuery(document).ready(function() {
 				path: '/user',
 				element: '.row:eq(1)',
 				title: 'Profiel',
+				placement: 'left',
 				content: 'Hier zie je je gegevens zoals bekend.'
 			},
 			{
 				path: '/user',
 				element: '.row:eq(2)',
 				title: 'Taken',
+				placement: 'left',
 				content: 'Ook hier heb je een overzicht van je taken. De layout is hetzelfde als op de frontpage.'
 			},
 			{
 				path: '/user',
 				element: '.row:eq(3)',
 				title: 'Projecten',
+				placement: 'left',
 				content: 'Ook hier heb je een overzicht van je projecten. De layout is hetzelfde als op de frontpage'
 			}
 		]
