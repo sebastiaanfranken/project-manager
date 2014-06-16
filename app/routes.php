@@ -246,69 +246,20 @@ Route::group(array('prefix' => 'user', 'before' => 'auth'), function() {
  * The clean route cleans all tables of all data
  * USE WITH CAUTION
  */
-Route::get('clean', function() {
-	if(Auth::check() && Auth::user()->role == 'admin' && Auth::user()->id == 1)
-	{
-		
-		/*
-		 * Get all projects
-		 */
-		$projects = Project::all();
+Route::get('clean', array('before' => array('auth', 'isAdmin'), function() {
+	return View::make('layouts/main')->nest('content', 'clean');
+}));
 
-		/*
-		 * Get all tasks
-		 */
-		$tasks = Task::all();
+Route::post('clean', array('before' => array('auth', 'isAdmin'), function() {
 
-		/*
-		 * Get all users except the first one
-		 */
-		$users = User::where('id', '>', 1)->get();
+	/*
+	 * Inform the remaining user what just happened ... 
+	 */
+	flash('Deze functionaliteit is nog niet ge&iuml;mplementeerd', 'warning');
 
-		/*
-		 * Loop over all projects and delete all tasks in the project_user table belonging to that project,
-		 * then delete all users in the project_user table belonging to that project
-		 * and lastly delete the project altogether
-		 */
-		foreach($projects as $project)
-		{
-			$project->tasks()->detach();
-			$project->user()->detach();
-			$project->delete();
-		}
+	/*
+	 * ... and redirect him/her home
+	 */
+	return Redirect::to('/');
 
-		/*
-		 * Loop over all tasks and delete all users in the project_user table belonging to that task,
-		 * then delete all projects in the project_user table belonging to that task
-		 * and lastly delete the task altogether
-		 */
-		foreach($tasks as $task)
-		{
-			$task->user()->detach();
-			$task->project()->detach();
-			$task->delete();
-		}
-
-		/*
-		 * Loop over all users and delete them all
-		 */
-		foreach($users as $user)
-		{
-			$user->delete();
-		}
-
-		/*
-		 * Inform the remaining user what just happened ... 
-		 */
-		Session::flash('message', 'Alle projecten, taken en gebruikers zijn verwijderd.');
-
-		/*
-		 * ... and redirect him/her home
-		 */
-		return Redirect::to('/');
-	}
-	else
-	{
-		return Redirect::to('/');
-	}
-});
+}));

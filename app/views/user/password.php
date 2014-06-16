@@ -8,9 +8,9 @@
 
 	<div class="row">
 		<h2>Wachtwoord wijzigen</h2>
-		<div class="alert alert-info">
+		<div class="alert alert-warning">
 			<p><strong>Let op</strong>: na het wijzigen van je wachtwoord word je uitgelogd.</p>
-		</div> <!-- /.alert /.alert-info -->
+		</div> <!-- /.alert /.alert-warning -->
 
 		<?php if(isset($errors) && count($errors) > 0) : ?>
 		<div class="alert alert-warning">

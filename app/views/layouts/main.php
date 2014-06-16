@@ -57,9 +57,10 @@
 
 		<?php if(Session::has('message')) : ?>
 		<div class="container">
-			<div class="alert alert-info">
+			<div class="alert alert-dismissable alert-<?php print Session::has('message-type') ? Session::get('message-type') : 'info';?>">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<?php print Session::get('message');?>
-			</div> <!-- /.alert /.alert-info -->
+			</div> <!-- /.alert /.alert-dismissable -->
 		</div> <!-- /.container -->
 		<?php endif;?>
 

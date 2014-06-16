@@ -50,6 +50,25 @@ if(!function_exists('print_array'))
 	}
 }
 
+/**
+ * A custom wrapper around Laravel's Sesion::flash() method to create a custom message
+ * @param string $message The message to set
+ * @param string $type The type of message to set.
+ * @return void
+ * @author Sebastiaan Franken <sebastiaan@sebastiaanfranken.nl>
+ */
+if(!function_exists('flash'))
+{
+	function flash($message, $type = 'info')
+	{
+		$types = array('success', 'info', 'warning', 'danger');
+		$type = in_array($type, $types) ? $type : 'info';
+
+		Session::flash('message-type', $type);
+		Session::flash('message', $message);
+	}
+}
+
 if(!function_exists('pr'))
 {
 	function pr($what)

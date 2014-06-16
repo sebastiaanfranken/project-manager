@@ -88,3 +88,14 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+ * Role filters
+ */
+Route::filter('roleAdmin', function() {
+	return (Auth::check() && Auth::user()->role == 'admin') ? true : false;
+});
+
+Route::filter('isUser', function() {
+	return (Auth::check() && Auth::user()->role == 'user') ? true : false;
+});
