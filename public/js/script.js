@@ -104,13 +104,13 @@ jQuery(document).ready(function() {
 				content: 'Ook hier heb je een overzicht van je projecten. De layout is hetzelfde als op de frontpage'
 			}
 		]
-	}).init().start();
+	}).init();
 
 	/*
 	 * Load the tour on click
 	 */
 	$('a[data-trigger-tour]').on('click', function(event) {
 		event.preventDefault();
-		tour.restart();
+		tour.start().restart();
 	});
 });
