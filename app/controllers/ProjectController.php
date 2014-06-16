@@ -57,6 +57,7 @@ class ProjectController extends BaseController
 		$rules = array(
 			'name' => array('required'),
 			'description' => array('required', 'min:10', 'max:100'),
+			'estimated_hours' => array('required'),
 			'members' => array('required'),
 			'start_date' => array('required', 'date', 'date_format:d-m-Y'),
 			'end_date' => array('date', 'date_format:d-m-Y', 'different:start_date')
@@ -73,6 +74,7 @@ class ProjectController extends BaseController
 			$project = new Project;
 			$project->name = Input::get('name');
 			$project->description = Input::get('description');
+			$project->estimated_hours = Input::get('estimated_hours');
 			$project->start_date = timestamp(Input::get('start_date'), null, 'Y-m-d');
 
 			if(Input::has('end_date'))
@@ -147,6 +149,7 @@ class ProjectController extends BaseController
 			$rules = array(
 				'name' => array('required'),
 				'description' => array('required', 'min:10', 'max:100'),
+				'estimated_hours' => array('required'),
 				'members' => array('required'),
 				'start_date' => array('required', 'date', 'date_format:d-m-Y'),
 				'end_date' => array('date', 'date_format:d-m-Y')
@@ -163,6 +166,7 @@ class ProjectController extends BaseController
 				$project = Project::find($projectid);
 				$project->name = Input::get('name');
 				$project->description = Input::get('description');
+				$project->estimated_hours = Input::get('estimated_hours');
 				$project->start_date = timestamp(Input::get('start_date'), null, 'Y-m-d');
 
 				if(Input::has('end_date'))

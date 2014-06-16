@@ -46,6 +46,12 @@
 				</div> <!-- /.col-sm-10 -->
 			</div> <!-- /.form-group -->
 			<div class="form-group">
+				<?php print Form::label('estimated_hours', 'Geschatte uren', array('class' => 'col-sm-2 control-label'));?>
+				<div class="col-sm-10">
+					<?php print Form::text('estimated_hours', Input::old('estimated_hours'), array('class' => 'form-control', 'required' => 'required'));?>
+				</div> <!-- /.col-sm-10 -->
+			</div> <!-- /.form-group -->
+			<div class="form-group">
 				<?php print Form::label('start_date', 'Startdatum', array('class' => 'col-sm-2 control-label'));?>
 				<div class="col-sm-10">
 					<?php print Form::text('start_date', Input::old('start_date', timestamp('now')), array('class' => 'form-control', 'required' => 'required'));?>

@@ -218,7 +218,12 @@ class UserController extends BaseController
 	 */
 	public function getExport()
 	{
-		return Redirect::action('UserController@getUsers');
+		if(Auth::user()->role == 'admin')
+		{
+			return View::make('layouts/main')->nest('content', 'user/export');
+		}
+
+		return Redirect::action('UserController@getIndex');
 	}
 
 	/*

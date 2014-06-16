@@ -242,121 +242,73 @@ Route::group(array('prefix' => 'user', 'before' => 'auth'), function() {
 	Route::post('export', 'UserController@postExport');
 });
 
-/**
- * The setup route.
- * @todo Remove this after first-run
+/*
+ * The clean route cleans all tables of all data
+ * USE WITH CAUTION
  */
-Route::get('setup', function() {
-
-	/*
-	 * Make a new user
-	 */
-	$user = new User;
-	$user->username = 'admin';
-	$user->password = Hash::make('@welkom1');
-	$user->save();
-
-	$user = new User;
-	$user->username = 'member';
-	$user->password = Hash::make('@member1');
-	$user->save();
-
-	/*
-	 * Make two dummy projects
-	 */
-	$project = new Project;
-	$project->name = 'Test project 1';
-	$project->description = 'Het 1e test project';
-	$project->start_date = (new DateTime('now', new DateTimeZone('Europe/Amsterdam')))->format('Y-m-d');
-	$project->end_date = (new DateTime('01-01-2020', new DateTimeZone('Europe/Amsterdam')))->format('Y-m-d');
-	$project->save();
-
-	$project = new Project;
-	$project->name = 'Test project 2';
-	$project->description = 'Het 2e test project';
-	$project->start_date = (new DateTime('now', new DateTimeZone('Europe/Amsterdam')))->format('Y-m-d');
-	$project->end_date = null;
-	$project->save();
-
-	echo 'Done';
-});
-
-/**
- * The debug route
- * @todo Remove this
- */
-Route::get('debug', function() {
-	$projects = Project::all();
-	$users = User::all();
-	$tasks = Task::all();
-
-	echo '<h1>Projecten</h1>';
-	foreach($projects as $project)
+Route::get('clean', function() {
+	if(Auth::check() && Auth::user()->role == 'admin' && Auth::user()->id == 1)
 	{
-		$fields = array();
-		$fields['id'] = $project->id;
-		$fields['name'] = $project->name;
+		
+		/*
+		 * Get all projects
+		 */
+		$projects = Project::all();
 
-		if($project->users->count())
+		/*
+		 * Get all tasks
+		 */
+		$tasks = Task::all();
+
+		/*
+		 * Get all users except the first one
+		 */
+		$users = User::where('id', '>', 1)->get();
+
+		/*
+		 * Loop over all projects and delete all tasks in the project_user table belonging to that project,
+		 * then delete all users in the project_user table belonging to that project
+		 * and lastly delete the project altogether
+		 */
+		foreach($projects as $project)
 		{
-			$fields['users'] = array();
-
-			foreach($project->users as $user)
-			{
-				$fields['users'][] = $user->username;
-			}
+			$project->tasks()->detach();
+			$project->user()->detach();
+			$project->delete();
 		}
 
-		print '<pre>' . print_r($fields, true) . '</pre>';
+		/*
+		 * Loop over all tasks and delete all users in the project_user table belonging to that task,
+		 * then delete all projects in the project_user table belonging to that task
+		 * and lastly delete the task altogether
+		 */
+		foreach($tasks as $task)
+		{
+			$task->user()->detach();
+			$task->project()->detach();
+			$task->delete();
+		}
+
+		/*
+		 * Loop over all users and delete them all
+		 */
+		foreach($users as $user)
+		{
+			$user->delete();
+		}
+
+		/*
+		 * Inform the remaining user what just happened ... 
+		 */
+		Session::flash('message', 'Alle projecten, taken en gebruikers zijn verwijderd.');
+
+		/*
+		 * ... and redirect him/her home
+		 */
+		return Redirect::to('/');
 	}
-
-	echo '<h1>Gebruikers</h1>';
-	foreach($users as $user)
+	else
 	{
-		$fields = array();
-		$fields['id'] = $user->id;
-		$fields['username'] = $user->username;
-
-		if($user->projects->count())
-		{
-			$fields['projects'] = array();
-
-			foreach($user->projects as $project)
-			{
-				$fields['projects'][] = $project->name;
-			}
-		}
-
-		if($user->tasks->count())
-		{
-			$fields['tasks'] = array();
-
-			foreach($user->tasks as $task)
-			{
-				$fields['tasks'][] = $task->name;
-			}
-		}
-
-		print '<pre>' . print_r($fields, true) . '</pre>';
-	}
-
-	echo '<h1>Taken</h1>';
-	foreach($tasks as $task)
-	{
-		$fields = array();
-		$fields['id'] = $task->id;
-		$fields['name'] = $task->name;
-
-		if($task->project->count())
-		{
-			$fields['project'] = array('id' => $task->project->id, 'name' => $task->project->name);
-		}
-
-		if($task->user->count())
-		{
-			$fields['user'] = array('id' => $task->user->id, 'username' => $task->user->username);
-		}
-
-		print '<pre>' . print_r($fields, true) . '</pre>';
+		return Redirect::to('/');
 	}
 });

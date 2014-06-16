@@ -111,8 +111,9 @@ class TaskController extends BaseController
 		}
 	}
 
-	/*
+	/**
 	 * Shows the view to update a task
+	 * @todo Make use of the one-to-many relationship instead of querying it like this. See if that makes sense
 	 */
 	public function getUpdate($taskid = null)
 	{
