@@ -8,10 +8,11 @@
 		<title>Projectplanner</title>
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-tour.min.css" />
 		<link rel="stylesheet" type="text/css" href="/css/layout.css" />
 	</head>
 
-	<body>
+	<body class="<?php print body_classes();?>">
 		<div class="navbar navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -38,6 +39,8 @@
 							<ul class="dropdown-menu">
 								<li><a href="<?php print action('UserController@getIndex');?>">Mijn profiel</a></li>
 								<li><a href="<?php print action('UserController@getPassword');?>">Wachtwoord wijzigen</a></li>
+								<li class="divider"></li>
+								<li><a href="#" data-trigger-tour="true">Geef me een rondleiding</a></li>
 								<?php if(Auth::user()->role == 'admin') : ?>
 								<li class="divider"></li>
 								<li><a href="<?php print action('UserController@getUsers');?>">Gebruikersbeheer</a></li>
@@ -68,6 +71,7 @@
 
 		<script type="text/javascript" src="/js/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/bootstrap-tour.min.js"></script>
 		<script type="text/javascript" src="/js/script.js"></script>
 	</body>
 </html>

@@ -84,6 +84,34 @@ if(!function_exists('nill'))
 	}
 }
 
+if(!function_exists('body_classes'))
+{
+	function body_classes($additional = null, $prefix = 'page-')
+	{
+		$classes = '';
+
+		if(!is_null(Request::segment(1)) && !is_null(Request::segment(2)))
+		{
+			$classes .= $prefix . strtolower(Request::segment(1)) . ' ' . $prefix . strtolower(Request::segment(1)) . '-' . strtolower(Request::segment(2)) . ' ';
+		}
+		elseif(!is_null(Request::segment(1)))
+		{
+			$classes .= $prefix . strtolower(Request::segment(1)) . ' ';
+		}
+		else
+		{
+			$classes .= $prefix . 'home ';
+		}
+
+		if(!is_null($additional) && is_string($additional))
+		{
+			$classes .= $additional . ' ';
+		}
+
+		return rtrim($classes);
+	}
+}
+
 if(!function_exists('pr'))
 {
 	function pr($what)
