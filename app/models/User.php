@@ -39,6 +39,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Task');
 	}
 
+	public function comments()
+	{
+		return $this->hasMany('Comment');
+	}
+
 	/**
 	 * This checks if the user ($uid) is member of a project ($pid)
 	 * @param int $uid The user ID

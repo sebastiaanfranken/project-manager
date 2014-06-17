@@ -94,7 +94,8 @@ class ProjectController extends BaseController
 				$pivot->users()->attach($user);
 			}
 
-			Session::flash('message', 'Het project is opgeslagen.');
+			//Session::flash('message', 'Het project is opgeslagen.');
+			flash('Het project ' . Input::get('name') . ' is opgeslagen.', 'success');
 
 			return Redirect::action('ProjectController@getIndex');
 		}
@@ -193,7 +194,8 @@ class ProjectController extends BaseController
 
 				}
 
-				Session::flash('message', 'Het project is opgeslagen.');
+				//Session::flash('message', 'Het project is opgeslagen.');
+				flash('Het project ' . Input::get('name') . ' is opgeslagen.', 'success');
 
 				return Redirect::action('ProjectController@getIndex');
 			}
@@ -243,9 +245,11 @@ class ProjectController extends BaseController
 			 * Delete the project now
 			 */
 			$project = Project::find($projectid);
+			$name = $project->name;
 			$project->delete();
 
-			Session::flash('message', 'Het project (en taken) is verwijderd.');
+			//Session::flash('message', 'Het project (en taken) is verwijderd.');
+			flash('Het project ' . $name . ' is verwijderd.', 'success');
 		}
 
 		return Redirect::action('ProjectController@getDetails', array($projectid));

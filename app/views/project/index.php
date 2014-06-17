@@ -26,7 +26,8 @@
 				<?php foreach($projects as $project) : ?>
 				<tr>
 					<td><?php print $project->id;?></td>
-					<td><?php print $project->name;?></td>
+					<!-- <td><?php print $project->name;?></td> -->
+					<td><a href="<?php print action('ProjectController@getDetails', array($project->id));?>"><?php print $project->name;?></a></td>
 					<td><?php print print_array(Project::find($project->id)->users()->get()->toArray(), 'username');?></td>
 					<td><?php print timestamp($project->start_date, 'Geen startdatum');?></td>
 					<td><?php print timestamp($project->end_date, 'Geen einddatum');?></td>

@@ -105,7 +105,8 @@ class TaskController extends BaseController
 
 			$task->save();
 
-			Session::flash('message', 'De taak is opgeslagen.');
+			//Session::flash('message', 'De taak is opgeslagen.');
+			flash('De taak ' . Input::geT('name') . ' is opgeslagen.', 'success');
 
 			return Redirect::action('TaskController@getIndex');
 		}
@@ -204,7 +205,8 @@ class TaskController extends BaseController
 
 				$task->save();
 
-				Session::flash('message', 'De taak is opgeslagen.');
+				//Session::flash('message', 'De taak is opgeslagen.');
+				flash('De taak ' . Input::get('name') . ' is opgeslagen.', 'success');
 
 				return Redirect::action('TaskController@getIndex');
 			}
@@ -238,9 +240,11 @@ class TaskController extends BaseController
 		if(!is_null($taskid) && Task::where('id', '=', $taskid)->where('user_id', '=', Auth::user()->id)->first()->user_id == Auth::user()->id)
 		{
 			$task = Task::find($taskid);
+			$name = $task->name;
 			$task->delete();
 
-			Session::flash('message', 'De taak is verwijderd.');
+			//Session::flash('message', 'De taak is verwijderd.');
+			flash('De taak ' . $name . ' is verwijderd.', 'success');
 		}
 
 		return Redirect::action('TaskController@getIndex');

@@ -43,6 +43,10 @@
 					<td><?php print timestamp($project->end_date, 'Geen einddatum');?></td>
 				</tr>
 				<tr>
+					<td>Aangemaakt op</td>
+					<td><?php print timestamp($project->created_at, 'Uhm...', 'd-m-Y H:i:s');?></td>
+				</tr>
+				<tr>
 					<td>Laatste wijziging</td>
 					<td><?php print timestamp($project->updated_at, 'Geen wijzigingen', 'd-m-Y H:i:s');?></td>
 				</tr>

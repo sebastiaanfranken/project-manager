@@ -106,4 +106,15 @@
 		<p>Er zijn nog geen projecten toegewezen aan ja. Wil je er nu <a href="<?php print action('ProjectController@getCreate');?>">een toevoegen</a>?</p>
 		<?php endif;?>
 	</div> <!-- /.row -->
+
+	<div class="row">
+		<h2>Reacties</h2>
+		<?php if($user->comments()->count() > 0) : ?>
+		<table class="table table-striped">
+
+		</table> <!-- /.table /.table-striped -->
+		<?php else : ?>
+		<p>Er zijn nog geen reacties gemaakt door je.</p>
+		<?php endif;?>
+	</div> <!-- /.row -->
 </div> <!-- /.container -->

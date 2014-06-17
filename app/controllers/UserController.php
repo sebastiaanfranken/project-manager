@@ -59,7 +59,8 @@ class UserController extends BaseController
 			}
 			else
 			{
-				Session::flash('message', 'Er is een fout opgetreden.');
+				//Session::flash('message', 'Er is een fout opgetreden.');
+				flash('Er is een fout opgetreden.', 'error');
 				return Redirect::action('UserController@getDetails', array(Auth::user()->id));
 			}
 		}
@@ -110,7 +111,7 @@ class UserController extends BaseController
 			$user->password = Hash::make(Input::get('password'));
 			$user->save();
 
-			flash('De gebruiker is toegevoegd.', 'success');
+			flash('De gebruiker ' . Input::get('username') . ' is opgeslagen.', 'success');
 		}
 	}
 
@@ -158,7 +159,8 @@ class UserController extends BaseController
 				$user->password = Hash::make(Input::get('password'));
 				$user->save();
 
-				Session::flash('message', 'De gebruiker is gewijzigd');
+				flash('De gebruiker is ' . Input::get('username') . ' is gewijzigd.', 'success');
+				//Session::flash('message', 'De gebruiker is gewijzigd');
 			}
 		}
 
@@ -190,9 +192,11 @@ class UserController extends BaseController
 		if(!is_null($userid))
 		{
 			$user = User::find($userid);
+			$username = $user->username;
 			$user->delete();
 
-			Session::flash('message', 'Deze gebruiker is verwijderd.');
+			flash('De gebruiker ' . $username . '  is verwijderd.', 'success');
+			//Session::flash('message', 'Deze gebruiker is verwijderd.');
 		}
 
 		return Redirect::action('UserController@getUsers');
