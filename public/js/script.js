@@ -102,6 +102,13 @@ jQuery(document).ready(function() {
 				title: 'Projecten',
 				placement: 'left',
 				content: 'Ook hier heb je een overzicht van je projecten. De layout is hetzelfde als op de frontpage'
+			},
+			{
+				path: '/user',
+				element: '.row:eq(4)',
+				title: 'Reacties',
+				placement: 'left',
+				content: 'En hier is een overzicht van reacties op taken die je geplaatst hebt, volgens de bekende layout.'
 			}
 		]
 	}).init();

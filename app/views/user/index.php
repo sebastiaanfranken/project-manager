@@ -114,7 +114,7 @@
 
 		</table> <!-- /.table /.table-striped -->
 		<?php else : ?>
-		<p>Er zijn nog geen reacties gemaakt door je.</p>
+		<p>Er zijn nog geen reacties van je.</p>
 		<?php endif;?>
 	</div> <!-- /.row -->
 </div> <!-- /.container -->
