@@ -1,9 +1,17 @@
 /* --- Theme for the dashboard --- */
 
+/* --- Tags --- */
+
+body {	
+	padding-bottom: 200px;
+	padding-top: 80px;
+}
+
 /* --- Overrides --- */
 
 .navbar .navbar-nav a:hover, .navbar .navbar-nav li.active a {
-	background: #2e2e2e;
+	/* background: #2e2e2e; */
+	background: rgba(255, 255, 255, 0.175);
 }
 
 .navbar .navbar-nav .dropdown-menu a:hover {
@@ -21,9 +29,13 @@
 /* --- Custom stuff --- */
 
 .dashboard-navbar {
-	background: #3e3e3e;
+	/* background: #3e3e3e; */
+	background: #356aa0;
 }
 
 .dashboard-navbar a {
 	color: #fff;
+	-webkit-transition: all 200ms linear;
+	-moz-transition: all 200ms linear;
+	transition: all 200ms linear;
 }

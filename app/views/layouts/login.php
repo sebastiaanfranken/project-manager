@@ -15,6 +15,7 @@
 		<div class="container">
 			<?php print Form::open(array('class' => 'form-signin', 'role' => 'form'));?>
 			<h2 class="form-signin-heading">Login</h2>
+
 			<?php
 			print Form::text('username', Input::old('username'), array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Gebruikersnaam', 'autofocus' => 'autofocus'));
 			print Form::password('password', array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Wachtwoord'));
