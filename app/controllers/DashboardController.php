@@ -18,6 +18,14 @@ class DashboardController extends BaseController
 		/**
 		 * @todo Show the user things they want to see
 		 */
+
+		$data = array(
+			'users' => User::all(),
+			'projects' => Project::all(),
+			'tasks' => Task::all()
+		);
+
+		return View::make('layouts/dashboard')->nest('content', 'dashboard/index', $data);
 	}
 
 	public function getCreateUser(){}

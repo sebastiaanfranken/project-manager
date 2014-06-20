@@ -259,14 +259,13 @@ Route::group(array('prefix' => 'dashboard', 'before' => array('auth', 'roleAdmin
 
 	Route::get('/', 'DashboardController@getIndex');
 
-	Route::get('create-user', 'DashboardController@getCreateUser');
-	Route::post('create-user', 'DashboardController@postCreateUser');
-
-	Route::get('update-user/{userid?}', 'DashboardController@getUpdateUser');
-	Route::post('update-user/{userid?}', 'DashboardController@postUpdateUser');
-
-	Route::get('delete-user/{userid?}', 'DashboardController@getDeleteUser');
-	Route::post('delete-user/{userid?}', 'DashboardController@postDeleteUser');
+	Route::get('users', 'DashboardController@getUsers');
+	Route::get('users/create', 'DashboardController@getCreateUser');
+	Route::post('users/create', 'DashboardController@postCreateUser');
+	Route::get('users/update/{userid?}', 'DashboardController@getUpdateUser');
+	Route::post('users/update/{userid?}', 'DashboardController@postUpdateUser');
+	Route::get('users/delete/{userid?}', 'DashboardController@getDeleteUser');
+	Route::post('users/delete/{userid?}', 'DashboardController@postDeleteUser');
 
 	Route::get('import', 'DashboardController@getImport');
 	Route::post('import', 'DashboardController@postImport');

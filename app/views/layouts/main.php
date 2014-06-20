@@ -43,7 +43,7 @@
 								<li><a href="#" data-trigger-tour="true">Geef me een rondleiding</a></li>
 								<?php if(Auth::user()->role == 'admin') : ?>
 								<li class="divider"></li>
-								<li><a href="<?php print action('UserController@getUsers');?>">Gebruikersbeheer</a></li>
+								<li><a href="<?php print action('DashboardController@getIndex');?>">Dashbaord</a></li>
 								<li class="divider"></li>
 								<li><a href="<?php print action('UserController@getExport');?>">Gegevens exporteren</a></li>
 								<li><a href="<?php print action('UserController@getImport');?>">Gegevens importeren</a></li>

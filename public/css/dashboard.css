@@ -1,0 +1,29 @@
+/* --- Theme for the dashboard --- */
+
+/* --- Overrides --- */
+
+.navbar .navbar-nav a:hover, .navbar .navbar-nav li.active a {
+	background: #2e2e2e;
+}
+
+.navbar .navbar-nav .dropdown-menu a:hover {
+	background: #f4f4f4;
+}
+
+.navbar .open .dropdown-toggle {
+	color: #000;
+}
+
+.navbar .open .dropdown-toggle:hover {
+	color: #fff;
+}
+
+/* --- Custom stuff --- */
+
+.dashboard-navbar {
+	background: #3e3e3e;
+}
+
+.dashboard-navbar a {
+	color: #fff;
+}
