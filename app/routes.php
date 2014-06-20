@@ -253,6 +253,13 @@ Route::group(array('prefix' => 'user', 'before' => 'auth'), function() {
 });
 
 /*
+ * This routegroup handles all things dashboard
+ */
+Route::group(array('prefix' => 'dashboard', 'before' => array('auth', 'roleAdmin')), function() {
+
+});
+
+/*
  * The clean route cleans all tables of all data
  * USE WITH CAUTION
  */
