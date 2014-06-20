@@ -257,6 +257,22 @@ Route::group(array('prefix' => 'user', 'before' => 'auth'), function() {
  */
 Route::group(array('prefix' => 'dashboard', 'before' => array('auth', 'roleAdmin')), function() {
 
+	Route::get('/', 'DashboardController@getIndex');
+
+	Route::get('create-user', 'DashboardController@getCreateUser');
+	Route::post('create-user', 'DashboardController@postCreateUser');
+
+	Route::get('update-user/{userid?}', 'DashboardController@getUpdateUser');
+	Route::post('update-user/{userid?}', 'DashboardController@postUpdateUser');
+
+	Route::get('delete-user/{userid?}', 'DashboardController@getDeleteUser');
+	Route::post('delete-user/{userid?}', 'DashboardController@postDeleteUser');
+
+	Route::get('import', 'DashboardController@getImport');
+	Route::post('import', 'DashboardController@postImport');
+
+	Route::get('export', 'DashboardController@getExport');
+	Route::post('export', 'DashboardController@postExport');
 });
 
 /*
