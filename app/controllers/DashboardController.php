@@ -136,7 +136,7 @@ class DashboardController extends BaseController
 		{
 			$data = array(
 				'user' => User::find($userid)
-			};
+			);
 
 			return View::make('layouts/dashboard')->nest('content', 'dashboard/delete-user', $data);
 		}
