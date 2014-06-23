@@ -257,20 +257,64 @@ Route::group(array('prefix' => 'user', 'before' => 'auth'), function() {
  */
 Route::group(array('prefix' => 'dashboard', 'before' => array('auth', 'roleAdmin')), function() {
 
+	/*
+	 * Handles the HTTP GET for the main dashboard index
+	 */
 	Route::get('/', 'DashboardController@getIndex');
 
+	/*
+	 * Handles the HTTP GET to list all users
+	 */
 	Route::get('users', 'DashboardController@getUsers');
+
+	/*
+	 * Handles the HTTP GET to create a user
+	 */
 	Route::get('users/create', 'DashboardController@getCreateUser');
+
+	/*
+	 * Handles the HTTP POST to create a user
+	 */
 	Route::post('users/create', 'DashboardController@postCreateUser');
+
+	/*
+	 * Handles the HTTP GET to update a user
+	 */
 	Route::get('users/update/{userid?}', 'DashboardController@getUpdateUser');
+
+	/*
+	 * Handles the HTTP POST to update a user
+	 */
 	Route::post('users/update/{userid?}', 'DashboardController@postUpdateUser');
+
+	/*
+	 * Handles the HTTP GET to delete a user
+	 */
 	Route::get('users/delete/{userid?}', 'DashboardController@getDeleteUser');
+
+	/*
+	 * Handles the HTTP POST to delete a user
+	 */
 	Route::post('users/delete/{userid?}', 'DashboardController@postDeleteUser');
 
+	/*
+	 * Handles the HTTP GET to import data into the system
+	 */
 	Route::get('import', 'DashboardController@getImport');
+
+	/*
+	 * Handles the HTTP POST to import data into the system
+	 */
 	Route::post('import', 'DashboardController@postImport');
 
+	/*
+	 * Handles the HTTP GET to export data out of the system
+	 */
 	Route::get('export', 'DashboardController@getExport');
+
+	/*
+	 * Handles the HTTP POST to export data out of the system
+	 */
 	Route::post('export', 'DashboardController@postExport');
 });
 
