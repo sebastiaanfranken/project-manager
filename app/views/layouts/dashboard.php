@@ -27,9 +27,8 @@
 
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="<?php print Request::segment(1) == 'users' ? 'active' : '';?>"><a href="<?php print action('DashboardController@getUsers');?>">Gebruikers</a></li>
-						<li class="<?php print Request::segment(1) == 'import' ? 'active' : '';?>"><a href="<?php print action('DashboardController@getImport');?>">Importeren</a></li>
-						<li class="<?php print Request::segment(1) == 'export' ? 'active' : '';?>"><a href="<?php print action('DashboardController@getExport');?>">Exporteren</a></li>
+						<li class="<?php print Request::segment(2) == 'import' ? 'active' : '';?>"><a href="<?php print action('DashboardController@getImport');?>">Importeren</a></li>
+						<li class="<?php print Request::segment(2) == 'export' ? 'active' : '';?>"><a href="<?php print action('DashboardController@getExport');?>">Exporteren</a></li>
 					</ul> <!-- /.nav /.nav-bar-nav -->
 
 					<ul class="nav navbar-nav pull-right">
