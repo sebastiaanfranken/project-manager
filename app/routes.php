@@ -89,7 +89,10 @@ Route::get('/', function() {
 
 			$inner .= '</ul>';
 
-			flash($inner, 'warning');
+			/**
+			 * @todo Fix this so it doesn't show past the frontpage
+			 * flash($inner, 'warning');
+			 */
 		}
 
 		return View::make('layouts/main')->nest('content', 'frontpage', $data);
