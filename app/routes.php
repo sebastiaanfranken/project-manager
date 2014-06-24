@@ -21,10 +21,76 @@ Route::get('/', function() {
 	}
 	else
 	{
-		$data = array(
-			'tasks' => Task::where('user_id', '=', Auth::user()->id)->paginate(15),
-			'projects' => User::find(Auth::user()->id)->projects()->paginate(15)
-		);
+		/*
+		 * Stores view data
+		 */
+		$data = array();
+
+		/*
+		 * Stores messages
+		 */
+		$messages = array();
+
+		/*
+		 * Gets the tasks and adds it to the $data array
+		 */
+		$data['tasks'] = Task::where('user_id', '=', Auth::user()->id)->paginate(15);
+
+		/*
+		 * Get the projects and add them to the $data array
+		 */
+		$data['projects'] = User::find(Auth::user()->id)->projects()->paginate(15);
+
+		/*
+		 * A timestamp to check the project and tasks date against
+		 */
+		$timestamp = new DateTime('now', new DateTimeZone('Europe/Amsterdam'));
+
+		/*
+		 * Loop over all tasks and check the date
+		 */
+		foreach($data['tasks'] as $task)
+		{
+			if(!is_null($task->end_date))
+			{
+				$end = new DateTime($task->end_date, new DateTimeZone('Europe/Amsterdam'));
+
+				if($task->completion < 100 && $end->format('Y') == $timestamp->format('Y') && $end->format('m') == $timestamp->format('m') && $end->format('d') - $timestamp->format('d') <= 5)
+				{
+					$messages[] = 'De taak <em>' . $task->name . '</em> moet binnenkort af zijn.';
+				}
+			}
+		}
+
+		/*
+		 * Loop over all projects and check the date
+		 */
+		foreach($data['projects'] as $project)
+		{
+			$end = new DateTime($project->end_date, new DateTimeZone('Europe/Amsterdam'));
+
+			if($end->format('Y') == $timestamp->format('Y') && $end->format('m') && $timestamp->format('m') && $end->format('d') - $timestamp->format('d') <= 30)
+			{
+				$messages[] = 'Het project <em>' . $project->name . '</em> moet binnen 30 dagen af zijn.';
+			}
+		}
+
+		/*
+		 * Check if we have messages and if so display them to the user.
+		 */
+		if(count($messages) > 0)
+		{
+			$inner = '<ul>';
+
+			foreach($messages as $message)
+			{
+				$inner .= '<li>' . $message . '</li>';
+			}
+
+			$inner .= '</ul>';
+
+			flash($inner, 'warning');
+		}
 
 		return View::make('layouts/main')->nest('content', 'frontpage', $data);
 	}
