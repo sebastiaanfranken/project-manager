@@ -166,7 +166,16 @@ class DashboardController extends BaseController
 	
 	public function getImport()
 	{
-		return View::make('layouts/dashboard')->nest('content', 'dashboard/import');
+		$data = array(
+			'types' => array(
+				'projects' => 'Projecten',
+				'tasks' => 'Taken',
+				'users' => 'Gebruikers',
+				'all' => 'Alles'
+			)
+		);
+
+		return View::make('layouts/dashboard')->nest('content', 'dashboard/import', $data);
 	}
 
 	public function postImport()
@@ -181,7 +190,16 @@ class DashboardController extends BaseController
 	 */
 	public function getExport()
 	{
-		return View::make('layouts/dashboard')->nest('content', 'dashboard/export');
+		$data = array(
+			'types' => array(
+				'projects' => 'Projecten',
+				'tasks' => 'Taken',
+				'users' => 'Gebruikers',
+				'all' => 'Alles'
+			)
+		);
+
+		return View::make('layouts/dashboard')->nest('content', 'dashboard/export', $data);
 	}
 
 	/*
@@ -191,27 +209,33 @@ class DashboardController extends BaseController
 	{
 		switch(Input::get('type'))
 		{
-			case 'users':
-				return Response::json(User::all());
+			case 'users': 
+				$json = json_encode(User::all()->toArray());
 			break;
 
-			case 'tasks':
-				return Response::json(Task::all());
+			case 'tasks': 
+				$json = json_encode(Task::all()->toArray());
 			break;
 
-			case 'projects':
-				return Response::json(Project::all());
+			case 'projects': 
+				$json = json_encode(Project::all()->toArray());
 			break;
 
 			default:
-				$return = array(
-					'users' => User::all(),
-					'tasks' => Task::all(),
-					'projects' => Project::all()
-				);
-
-				return Response::json($return);
+				$json = json_encode(array());
 			break;
 		}
+
+		$data = array(
+			'types' => array(
+				'projects' => 'Projecten',
+				'tasks' => 'Taken',
+				'users' => 'Gebruikers',
+				'all' => 'Alles'
+			),
+			'json' => $json
+		);
+
+		return View::make('layouts/dashboard')->nest('content', 'dashboard/export', $data);
 	}
 }
