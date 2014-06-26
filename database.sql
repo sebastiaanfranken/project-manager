@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.14  Distrib 5.5.37-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: project
 -- ------------------------------------------------------
--- Server version	5.5.37-0ubuntu0.14.04.1
+-- Server version	5.5.37-MariaDB-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `task_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `body` text NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comments`
+--
+
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `project_user`
 --
 
@@ -27,7 +54,7 @@ CREATE TABLE `project_user` (
   `project_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +63,7 @@ CREATE TABLE `project_user` (
 
 LOCK TABLES `project_user` WRITE;
 /*!40000 ALTER TABLE `project_user` DISABLE KEYS */;
-INSERT INTO `project_user` VALUES (11,1,1),(12,2,1),(13,4,1),(14,1,2),(15,4,2);
+INSERT INTO `project_user` VALUES (27,6,2),(30,5,1),(31,5,2);
 /*!40000 ALTER TABLE `project_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,12 +78,13 @@ CREATE TABLE `projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  `estimated_hours` varchar(255) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +93,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES (1,'Test project 1','Het 1e test project','2014-06-14','2020-01-01','2014-06-14 10:57:59','2014-06-14 10:57:59'),(2,'Test project 2','Het 2e test project','2014-06-14',NULL,'2014-06-14 10:57:59','2014-06-14 10:57:59'),(4,'My little bitch','Het project wat alle shit over zich heen krijgt','2014-06-14',NULL,'2014-06-14 19:07:29','2014-06-14 19:07:29');
+INSERT INTO `projects` VALUES (5,'Testproject','Dit is nog een testproject','1','2014-06-24','2014-06-25','2014-06-24 20:37:09','2014-06-24 20:37:09');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +116,7 @@ CREATE TABLE `tasks` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +125,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (1,1,1,0,'test','testtaak','2014-06-14',NULL,NULL,NULL);
+INSERT INTO `tasks` VALUES (4,5,1,0,'Meldingtest','Kijken of meldingen goed werken!','2014-06-24','2014-06-25','2014-06-24 20:37:33','2014-06-24 20:37:33');
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +154,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','$2y$10$zzB3nT41HRbhZVNCHT3Jt.kRtPHlFzpf5PEeg/LMrMRcJQ2LlB5je','admin','V21CjSMdhoFUEgDIgEPgUAUtEeLUu0cqgLriUPAhqNn4ukwXkvQkQ5iGFL7V','2014-06-14 10:57:59','2014-06-14 21:10:39'),(2,'member','$2y$10$mWVpkO2hkdFkvzMkcyqhl.jtsfwPiBga0R7H50nzdyaf92ims3bu6','','5JzfwGdcKVzifUekwn39d2UY2Kw8ojQpXwfYaYPoNHbcWAbVr2i9xuMCb2bs','2014-06-14 10:57:59','2014-06-14 20:42:09');
+INSERT INTO `users` VALUES (1,'admin','$2y$10$zzB3nT41HRbhZVNCHT3Jt.kRtPHlFzpf5PEeg/LMrMRcJQ2LlB5je','admin','8ENHeF1cJM1f6B3pqSMp0ICDlNPamjwQOfCCJqFAqGKuBJcwDtzuZiSOa1up','2014-06-14 10:57:59','2014-06-24 21:09:13'),(2,'member','$2y$10$mWVpkO2hkdFkvzMkcyqhl.jtsfwPiBga0R7H50nzdyaf92ims3bu6','user','25JDpyUFncu8hRnTzsBfYnl45c8nMHMHJEcEF0hZBJHFdsgm2TwndtfZn9ab','2014-06-14 10:57:59','2014-06-20 17:34:56');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -139,4 +167,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-14 23:12:51
+-- Dump completed on 2014-06-26 21:04:54
