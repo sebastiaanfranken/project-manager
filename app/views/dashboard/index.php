@@ -8,7 +8,13 @@
 
 		<div class="tab-content">
 			<div class="tab-pane active" id="projects">
-				<h2>Alle projecten</h2>
+				<h2>
+					Alle projecten
+					<div class="pull-right">
+						<a href="<?php print action('ProjectController@getCreate');?>" class="btn btn-info btn-sm">+</a>
+					</div> <!-- /.pull-right -->
+				</h2>
+
 				<?php if(count($projects) > 0) : ?>
 				<table class="table table-striped">
 					<thead>
@@ -33,7 +39,13 @@
 			</div> <!-- /.tabe-pane /#projects -->
 
 			<div class="tab-pane" id="tasks">
-				<h2>Alle taken</h2>
+				<h2>
+					Alle taken
+					<div class="pull-right">
+						<a href="<?php print action('TaskController@getCreate');?>" class="btn btn-info btn-sm">+</a>
+					</div> <!-- /.pull-right -->
+				</h2>
+
 				<?php if(count($tasks) > 0) : ?>
 				<table class="table table-striped">
 					<thead>
@@ -60,7 +72,12 @@
 			</div> <!-- /.tabe-pane /#tasks -->
 
 			<div class="tab-pane" id="users">
-				<h2>Alle gebruikers</h2>
+				<h2>
+					Alle gebruikers
+					<div class="pull-right">
+						<a href="<?php print action('DashboardController@getCreateUser');?>" class="btn btn-info btn-sm">+</a>
+					</div> <!-- /.pull-right -->
+				</h2>
 				<?php if(count($users) > 0) : ?>
 				<table class="table table-striped">
 					<thead>
